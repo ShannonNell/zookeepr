@@ -1,5 +1,7 @@
 const express = require('express');
 const { animals } = require('./data/animals');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = process.env.PORT || 3001;
 //instantiate the server
@@ -55,11 +57,17 @@ function findById(id, animalsArray) {
 
 //function to add new animal to json file
 function createNewAnimal(body, animalsArray) {
-    console.log(body);
-    //function main code here
+    // console.log(body);
+    const animal = body;
+    animalsArray.push(animal);
+
+    fs.writeFileSync(
+        path.join(__dirname, './data/animals.json'),
+        JSON.stringify({ animals: animalsArray }, null, 2)
+    );
 
     //return finished code to post route for response
-    return body;
+    return animal;
 };
 
 //route front end can request data from (GET)
@@ -86,12 +94,15 @@ app.get('/api/animals/:id', (req, res) => {
 app.post('/api/animals', (req, res) => {
     //req.body is where our incoming content will be
     // console.log(req.body);
-    
+
     //set id based on what the next index of the array will be
     req.body.id = animals.length.toString();
 
+    //add animal to json file and animals array in this function
+    const animal = createNewAnimal(req.body, animals);
+
     //res.json() sends the data back to the client
-    res.json(req.body);
+    res.json(animal);
 });
 
 //tell it to listen for requests
