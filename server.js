@@ -53,6 +53,15 @@ function findById(id, animalsArray) {
     return result;
 };
 
+//function to add new animal to json file
+function createNewAnimal(body, animalsArray) {
+    console.log(body);
+    //function main code here
+
+    //return finished code to post route for response
+    return body;
+};
+
 //route front end can request data from (GET)
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -76,7 +85,11 @@ app.get('/api/animals/:id', (req, res) => {
 //routes http POST request
 app.post('/api/animals', (req, res) => {
     //req.body is where our incoming content will be
-    console.log(req.body);
+    // console.log(req.body);
+    
+    //set id based on what the next index of the array will be
+    req.body.id = animals.length.toString();
+
     //res.json() sends the data back to the client
     res.json(req.body);
 });
