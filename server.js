@@ -82,7 +82,7 @@ function validateAnimal(animal) {
     if (!animal.diet || typeof animal.diet !== 'string') {
         return false;
     }
-    if (!animal.personalityTraits || typeof animal.personalityTraits !== 'string') {
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
         return false;
     }
     return true;
@@ -119,13 +119,11 @@ app.post('/api/animals', (req, res) => {
     //if any data in req.body is incorrect, send 400 error back
     if (!validateAnimal(req.body)) {
         res.status(400).send('The animal is not properly formatted.');
-    } else {
-        //add animal to json file and animals array in this function
+      } else {
         const animal = createNewAnimal(req.body, animals);
-        //res.json() sends the data back to the client
         res.json(animal);
-    }
-});
+      }
+    });
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));

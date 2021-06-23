@@ -117,6 +117,26 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Mufasa",
+      "species": "Lion",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "hungry",
+        "zany"
+      ],
+      "id": "12"
+    },
+    {
+      "name": "Terk",
+      "species": "Gorilla",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "zany",
+        "goofy"
+      ],
+      "id": "13"
     }
   ]
 }
